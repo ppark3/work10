@@ -15,55 +15,28 @@ var createCircle = function(e){
 	    c1.setAttribute("r", this.r);
 	    c1.setAttribute("fill", this.c);
 	    svg.appendChild(c1);
-	    c1.addEventListener("click", this.color);
+	    c1.addEventListener("click", this.color, true);
 	},
 	color:function(e){
-	    console.log("huh");
-	    this.c = "lightsteelblue";
-	    console.log(this.c);
-	    this.display.c1.setAttribute("fill", this.c);
-	    this.addEventListener("click", this.remove);
-	    e.stopPropagation();
+		this.c = "lightsteelblue";
+		this.setAttribute("fill", this.c);
+		console.log(this.c);
+		e.stopPropagation();
+		this.removeEventListener("click", this.color, true);
+		this.addEventListener("click", circle.removeCircle, true);
 	},
-	remove:function(){
+	removeCircle:function(){
 	    svg.removeChild(this);
 	    var c1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
 	    c1.setAttribute("cx", Math.random() * 500);
 	    c1.setAttribute("cy", Math.random() * 500);
-	    c1.setAttribute("r", this.r);
-	    c1.setAttribute("fill", this.c);
+	    c1.setAttribute("r", circle.r);
+	    c1.setAttribute("fill", circle.c);
 	    svg.appendChild(c1);
-	    c1.addEventListener("click", this.color);
+	    c1.addEventListener("click", circle.color);
 	}
     }
     circle.display();
-}
-/*
-var circle = function(e){
-    var c1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-	c1.setAttribute("cx", e.offsetX);
-	c1.setAttribute("cy", e.offsetY);
-	c1.setAttribute("r", 20);
-	c1.setAttribute("fill", "black");
-	svg.appendChild(c1);
-	c1.addEventListener("click", color);
-}
-*/
-var color = function(e){
-	this.setAttribute("fill", "lightsteelblue");
-    this.addEventListener("click", remove);
-	e.stopPropagation();
-}
-
-var remove = function(){
-	svg.removeChild(this);
-	var c1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-	c1.setAttribute("cx", Math.random() * 500);
-	c1.setAttribute("cy", Math.random() * 500);
-	c1.setAttribute("r", 20);
-	c1.setAttribute("fill", "black");
-	svg.appendChild(c1);
-	c1.addEventListener("click", color);
 }
 
 var erase = function(){
